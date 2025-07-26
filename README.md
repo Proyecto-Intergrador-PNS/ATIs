@@ -152,6 +152,4 @@ npm run dev
 
 ---
 
-## Contacto
-
-Para dudas o sugerencias, contactar a los desarrolladores del proyecto.
+## Desarrollador por el Grupo La Niña, La Pinta y La Santa María
