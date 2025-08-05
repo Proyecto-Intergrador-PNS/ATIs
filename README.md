@@ -131,7 +131,7 @@ node seed.js
 
 ```bash
 cd server
-node index.js
+npm start
 ```
 
 ### 6. Ejecutar el front-end
