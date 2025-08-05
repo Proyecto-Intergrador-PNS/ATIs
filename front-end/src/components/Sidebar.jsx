@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaHome, FaTable, FaBox, FaTruck, FaShoppingCart, FaUsers, FaCog, FaSignOutAlt } from 'react-icons/fa'
 import { NavLink } from 'react-router'
+import './Sidebar.css'
 
 const Sidebar = () => {
   const menuItems = [
@@ -16,25 +17,29 @@ const Sidebar = () => {
   ]
 
   return (
-    <div className='flex flex-col h-screen p-3 bg-black text-white w-16 md:w-64 fixed'>
-      <div className='h-16 flex flex-item justify-center'>
-        <span className='hidden md:block text-xl font'>Sistema ATIs</span>
-          <span className='md:hidden text-xl font-bold'>ATIs</span>
+    <div className="sidebar">
+      <div className="sidebar-header">
+        <span className="sidebar-title">Sistema ATIs</span>
+        <span className="sidebar-title-short">ATIs</span>
       </div>
-
-      <div>
-        <ul className='space-y-2 p-2'>
+      <div className="sidebar-menu">
+        <ul className="sidebar-menu-list">
           {menuItems.map((item) => (
-            <li key={item.name}>
-              <NavLink end={item.isParent} className={({ isActive }) => (isActive ? "bg-gray-700" : "" ) + "flex items-center p-2 rounded-md hover:bg-gray-700 transition duration-200"} to={item.path}>
-                <span className='text-xl'>{item.icon}</span>
-                <span className='ml-4 hidden md:block'>{item.name}</span>
+            <li className="sidebar-menu-item" key={item.name}>
+              <NavLink
+                end={item.isParent}
+                className={({ isActive }) =>
+                  `sidebar-link${isActive ? ' active' : ''}`
+                }
+                to={item.path}
+              >
+                <span className="sidebar-icon">{item.icon}</span>
+                <span className="sidebar-label">{item.name}</span>
               </NavLink>
             </li>
           ))}
         </ul>
       </div>
-
     </div>
   )
 }
