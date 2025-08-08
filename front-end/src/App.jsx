@@ -24,9 +24,6 @@ function App() {
           <Route path='profile' element={<h1>Profile</h1>} />
           <Route path='logout' element={<h1>Logout</h1>} />
 
-        
-            
-
         </Route>
         <Route path='/customer/dashboard' element={<h1>Summary of Dashboard</h1>} ></Route>
         <Route path="/login" element={<Login />} />
