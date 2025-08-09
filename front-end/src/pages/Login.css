@@ -1,3 +1,17 @@
+/*
+ * Login Component Styles
+ *
+ * This CSS file defines the styles for the login page components,
+ * including the main container, the form, and the form elements.
+ */
+
+/*
+ * Styles for the main container of the login page.
+ *
+ * - `display: flex` and `flex-direction: column` center the form vertically and horizontally.
+ * - `min-height: 100vh` ensures the container fills the entire viewport height.
+ * - `background: linear-gradient` provides a subtle, modern gradient background.
+ */
 .login-container {
   display: flex;
   flex-direction: column;
@@ -7,6 +21,14 @@
   background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
 }
 
+/*
+ * Styles for the login form itself.
+ *
+ * - `background: #fff` gives it a clean, white card-like appearance.
+ * - `padding`, `border-radius`, and `box-shadow` create a raised, card-like effect.
+ * - `width` and `max-width` make the form responsive and prevent it from being too wide.
+ * - `gap: 1.5rem` adds space between child elements (title, form groups, and button).
+ */
 .login-form {
   background: #fff;
   padding: 2.5rem 2rem;
@@ -19,6 +41,7 @@
   gap: 1.5rem;
 }
 
+/*Styles for the main title inside the login form.*/
 .login-form h1 {
   margin-bottom: 1.5rem;
   color: #22223b;
@@ -26,18 +49,26 @@
   text-align: center;
 }
 
+/*Styles for the form-group, which holds a label and its corresponding input.*/
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+/*Styles for the input labels.*/
 label {
   font-size: 1rem;
   color: #4a4e69;
   font-weight: 500;
 }
 
+/*Styles for the text and password input fields.
+ *
+ * - `padding` and `border-radius` define their size and shape.
+ * - `background: #f5f6fa` gives them a subtle, light gray background.
+ * - `transition: border` creates a smooth color change on focus.
+ */
 input[type="text"],
 input[type="password"] {
   padding: 0.75rem 1rem;
@@ -48,12 +79,25 @@ input[type="password"] {
   transition: border 0.2s;
 }
 
+/*
+ * Styles for the input fields when they are in focus.
+ *
+ * - `border` changes the color and thickness to provide visual feedback.
+ * - `outline: none` removes the default browser focus outline.
+ */
 input[type="text"]:focus,
 input[type="password"]:focus {
   border: 1.5px solid #4a4e69;
   outline: none;
 }
 
+/*
+ * Styles for the submit button.
+ *
+ * - `background`, `color`, and `font-weight` define its appearance.
+ * - `cursor: pointer` changes the mouse cursor to indicate it's clickable.
+ * - `transition: background` creates a smooth hover effect.
+ */
 button[type="submit"] {
   background: #4a4e69;
   color: #fff;
@@ -66,6 +110,11 @@ button[type="submit"] {
   transition: background 0.2s;
 }
 
+/*
+ * Styles for the submit button on hover.
+ *
+ * - `background` changes to a darker shade to provide visual feedback.
+ */
 button[type="submit"]:hover {
   background: #22223b;
 }
