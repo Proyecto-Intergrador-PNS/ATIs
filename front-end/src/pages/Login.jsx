@@ -33,11 +33,11 @@ const Login = () => {
    * Stores any error messages received during the login process.
    * Initial state is `null`.
    */
-  const [error, setError] = useState("null");
+  const [error, setError] = useState(null); 
   /**
    * Manages the loading state, used to show feedback to the user (e.g., a "Loading..." button).
    */
-  const [loading, setLoading] = useState("false");
+  const [loading, setLoading] = useState(false);
    // --- React Hooks ---
   /**
    * Hook to programmatically navigate to a different route.
@@ -76,9 +76,9 @@ const Login = () => {
       if (response.data.success) {
         await login(response.data.user, response.data.token)
         if(response.data.user.role === "admin") {
-          navigate("/admin/dashboard");
-        }else {
-          navigate("/customer/dashboard")
+          navigate("/admin-dashboard");
+        } else {
+          navigate("/customer/dashboard");
         }
       }else {
         alert(response.data.error)

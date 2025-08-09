@@ -25,15 +25,15 @@ const Root = () => {
   // Hook para la navegación programática.
   const navigate = useNavigate();
 
-  // El `useEffect` se ejecuta cuando el componente se monta y cada vez que `user` o `Maps` cambian.
+  // El `useEffect` se ejecuta cuando el componente se monta y cada vez que `user` o `navigate` cambian.
   useEffect(() => {
     // Si hay un usuario autenticado...
     if (user) {
       // Redirige según el rol del usuario.
       if (user.role === "admin") {
-        navigate("/admin/dashboard");
+        navigate("/admin-dashboard");
       } else if (user.role === "customer") {
-        navigate("/employee/dashboard");
+        navigate("/customer/dashboard");
       } else {
         // Redirige al login si el rol no es reconocido.
         navigate("/login");

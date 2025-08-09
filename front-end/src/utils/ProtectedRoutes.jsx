@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom"; // Se corrigió la importación para usar react-router-dom
+import { useNavigate } from "react-router"; // Se corrigió la importación para usar react-router-dom
 
 /**
  * @file ProtectedRoutes.jsx
@@ -35,7 +35,7 @@ const ProtectedRoutes = ({ children, requireRole }) => {
     // Si el rol del usuario no está incluido en los roles requeridos,
     // redirige a una página de no autorizado.
     if (!requireRole.includes(user.role)) {
-      navigate('unauthorized');
+    navigate('/unauthorized');
       return;
     }
   }, [user, navigate, requireRole]);
