@@ -4,11 +4,11 @@ import { data } from 'react-router'
 
 const Categories = () => {
   const [categoryName, setCategoryName] = useState("")
-  const [CategoryDescription, setCategoryDescription] = useState("")
+  const [categoryDescription, setCategoryDescription] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      const response = await axios.post("http://localhost:3000/api/category/add", {categoryName, CategoryDescription}, {
+      const response = await axios.post("http://localhost:3000/api/category/add", {categoryName, categoryDescription}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("pos-token")}`,
         },

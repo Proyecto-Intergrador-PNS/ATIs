@@ -1,3 +1,6 @@
+import Category from '../models/Category.js';
+
+
 const addCategory =  async (req, res) => {
   try{
     const {categoryName, categoryDescription} = req.body;
