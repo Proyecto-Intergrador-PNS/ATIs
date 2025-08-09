@@ -1,4 +1,18 @@
 
+/*Sidebar Component Styles
+ *
+ * This CSS file defines the styles for the sidebar component.
+ * The sidebar is a vertical navigation element that adapts to different
+ * screen sizes, expanding on larger devices.*/
+
+/*Base styles for the sidebar container.
+ *
+ * - display: flex and flex-direction: column arrange the elements vertically.
+ * - height: 100vh ensures it takes up the full height of the viewport.
+ * - background: linear-gradient creates a dark-to-darker gradient for the background.
+ * - width: 6rem is the default (collapsed) width on mobile devices.
+ * - position: fixed keeps it visible as the main content scrolls.
+ * - transition: width smooths the animation when expanding the sidebar.*/
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -13,14 +27,16 @@
   transition: width 0.3s cubic-bezier(.4,0,.2,1);
 }
 
-
+/*Media query for larger screens (e.g., tablets and desktops).
+ *
+ * - At 768px and above, the sidebar width expands to 16rem.*/
 @media (min-width: 768px) {
   .sidebar {
     width: 16rem;
   }
 }
 
-
+/*Container for the sidebar header, which might hold a logo or title.*/
 .sidebar-header {
   height: 4rem;
   display: flex;
@@ -29,7 +45,8 @@
   margin-bottom: 2rem;
 }
 
-
+/*Full sidebar title (visible only on large screens).
+ * - display: none hides it by default on mobile devices.*/
 .sidebar-title {
   display: none;
   font-size: 1.5rem;
@@ -45,7 +62,8 @@
   }
 }
 
-
+/*Short sidebar title (visible only on small screens).
+ * - This is the text displayed when the sidebar is collapsed.*/
 .sidebar-title-short {
   font-size: 1.5rem;
   font-weight: 700;
@@ -58,24 +76,28 @@
   }
 }
 
-
+/*Container for the navigation menu.*/
 .sidebar-menu {
   padding: 0.5rem 0;
 }
 
-
+/*Styles for the menu list items.*/
 .sidebar-menu-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-
+/*Styles for each individual menu item.*/
 .sidebar-menu-item {
   margin-bottom: 0.5rem;
 }
 
-
+/*Base styles for menu links.
+ *
+ * - display: flex aligns the icon and text.
+ * - border-radius and box-shadow give it a smooth, elevated look.
+ * - transition: background, color, box-shadow creates hover animations.*/
 .sidebar-link {
   display: flex;
   align-items: center;
@@ -90,6 +112,10 @@
   overflow: hidden;
 }
 
+/*Styles for the "hover" and "active" state of the links.
+ *
+ * - background: linear-gradient and color: #fff change the background and text color.
+ * - box-shadow creates a more pronounced elevation effect.*/
 .sidebar-link:hover,
 .sidebar-link.active {
   background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
@@ -97,7 +123,7 @@
   box-shadow: 0 4px 16px rgba(75,108,183,0.15);
 }
 
-
+/*Styles for the menu icons.*/
 .sidebar-icon {
   font-size: 1.5rem;
   margin-right: 0.5rem;
@@ -105,12 +131,14 @@
   transition: color 0.2s;
 }
 
+/*Styles for the icon in the "hover" and "active" state of the link.*/
 .sidebar-link:hover .sidebar-icon,
 .sidebar-link.active .sidebar-icon {
   color: #fff;
 }
 
-
+/*Styles for the menu label text.
+ * - display: none hides it by default on mobile devices.*/
 .sidebar-label {
   margin-left: 1rem;
   display: none;
@@ -119,6 +147,7 @@
   letter-spacing: 0.5px;
 }
 
+/*Media query to show the menu label on large screens.*/
 @media (min-width: 768px) {
   .sidebar-label {
     display: block;
