@@ -15,9 +15,9 @@ const Categories = () => {
       }
     );
     if (response.data.success) {
-      alert("Category added successfully");
       setCategoryName("");
       setCategoryDescription("");
+      alert("Category added successfully");
     }else {
       console.error("Error adding the Category:", data);
       alert("Error adding the Category. Please try again")
