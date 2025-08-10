@@ -4,6 +4,7 @@ import Root from './utils/Root';
 import Login from './pages/Login';
 import ProtectedRoutes from './utils/ProtectedRoutes';
 import Dashboard from './pages/Dashboard';
+import Categories from './components/Categories';
 
 /**
  * @file App.jsx
@@ -42,7 +43,7 @@ function App() {
 
           {/* Nested routes for the dashboard. These pages will be rendered inside the `Outlet` 
               within the `Dashboard` component. */}
-          <Route path='categories' element={<h1>Categories</h1>} />
+          <Route path='categories' element={<Categories />} />
           <Route path='products' element={<h1>Products</h1>} />
           <Route path='suppliers' element={<h1>Suppliers</h1>} />
           <Route path='orders' element={<h1>Orders</h1>} />

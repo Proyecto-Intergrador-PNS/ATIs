@@ -1,3 +1,94 @@
+/* Categories Component Styles */
+.categories-container {
+  margin-left: 7rem;
+  padding: 2rem 1.5rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  color: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.categories-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+
+.categories-content {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.add-category-section {
+  background: #2c2f34;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  padding: 2rem 2.5rem;
+  min-width: 320px;
+  max-width: 400px;
+  flex: 1 1 320px;
+}
+
+.add-category-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  color: #f7ca18;
+}
+
+.add-category-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  padding: 0.7rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: #232526;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.input:focus {
+  box-shadow: 0 0 0 2px #f7ca18;
+}
+
+.add-category-btn {
+  background: linear-gradient(90deg, #f7ca18 60%, #f39c12 100%);
+  color: #232526;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 0.5rem;
+}
+.add-category-btn:hover {
+  background: linear-gradient(90deg, #f39c12 60%, #f7ca18 100%);
+  color: #fff;
+}
+
+.category-list-section {
+  flex: 2 1 400px;
+  background: #232526;
+  border-radius: 1rem;
+  min-height: 300px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 2rem;
+}
 
 /*Sidebar Component Styles
  *
