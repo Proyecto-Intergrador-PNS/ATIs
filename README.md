@@ -77,6 +77,20 @@ ATIs/
 
 ## Dependencias y Librerías
 
+
+### Herramientas Necesarias
+- **Docker**: Aplicativo la cual almacenara las imágenes necesarias.
+- ** MongoDB**: La base de datos necesaria para poder almacenar las entidades del proyecto, Imagen y Contenedor en Docker es lo recomendable.
+- ** MongoCompass**: Aplicativo el cual permitirá ver la base de datos y sus componentes
+
+### Instalacion de la Imagen de Mongo en Docker
+```bash
+docker run -d --name mongoDB -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin123 -v mongodata:/data/db mongo
+```
+## Nota
+Note que la Instalación ya cuenta con contraseña y usuario escritos en el comando, se saben que esas no son buenas prácticas, pero esto es un proyecto de carácter demostrativo y educativo. Si desea cambiar el Username y Password de la imagen de mongo, por favor actualizar las credenciales en el código también, el cual permitirá que el back-end logre comunicar con la base de datos, ya que el código automáticamente crear y genera lo fundamental para poder funcionar.
+
+
 ### Front-end
 
 - **React**: Librería principal para la construcción de interfaces de usuario.
@@ -120,11 +134,11 @@ git clone <url-del-repositorio>
 
 - Crear un archivo `.env` en `server/` con la cadena de conexión de MongoDB y otras variables necesarias.
 
-### 4. Poblar la base de datos (opcional)
+### 4. Crear el usuario Admin en la base de datos
 
 ```bash
 cd server
-node seed.js
+node --env-file=.env seed.js
 ```
 
 ### 5. Ejecutar el servidor
@@ -154,4 +168,8 @@ npm run dev
 
 ## Desarrollador por el Grupo La Niña, La Pinta y La Santa María
 
-//This text was written on a new branch as a test -RCO
+-Full-stack: Ricardo Contreras
+
+Back-End:
+
+Front-End:
