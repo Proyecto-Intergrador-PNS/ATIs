@@ -1,3 +1,79 @@
+/* Category Table Styles */
+.category-table-container {
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  margin-top: 0;
+}
+
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.category-table-header-row {
+  background: #f3f4f6;
+}
+
+.category-table-header {
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #232526;
+  background: #f3f4f6;
+}
+
+.category-table-row {
+  transition: background 0.2s;
+}
+.category-table-row:hover {
+  background: #f7f7fa;
+}
+
+.category-table-cell {
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem 1rem;
+  color: #232526;
+}
+
+/* Category Action Buttons */
+.category-edit-btn {
+  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(75,108,183,0.08);
+}
+.category-edit-btn:hover {
+  background: linear-gradient(90deg, #182848 0%, #4b6cb7 100%);
+  color: #f7ca18;
+}
+
+.category-delete-btn {
+  background: linear-gradient(90deg, #f85032 0%, #e73827 100%);
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(232,56,39,0.08);
+}
+.category-delete-btn:hover {
+  background: linear-gradient(90deg, #e73827 0%, #f85032 100%);
+  color: #fffbe7;
+}
 /* Categories Component Styles */
 .categories-container {
   margin-left: 7rem;
@@ -54,7 +130,7 @@
   border-radius: 0.5rem;
   border: none;
   background: #232526;
-  color: #fff;
+  color: #111;
   font-size: 1rem;
   outline: none;
   transition: box-shadow 0.2s;
@@ -62,6 +138,10 @@
 }
 .input:focus {
   box-shadow: 0 0 0 2px #f7ca18;
+}
+.input::placeholder {
+  color: #bdbdbd;
+  opacity: 1;
 }
 
 .add-category-btn {
