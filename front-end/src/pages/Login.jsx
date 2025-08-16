@@ -78,7 +78,7 @@ const Login = () => {
         if(response.data.user.role === "admin") {
           navigate("/admin-dashboard");
         } else {
-          navigate("/customer/dashboard");
+          navigate("/customer-dashboard");
         }
       }else {
         alert(response.data.error)
