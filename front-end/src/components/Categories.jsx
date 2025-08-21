@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { BsWindowSidebar } from 'react-icons/bs';
 import { data } from 'react-router';
 
 const Categories = () => {
@@ -45,6 +46,8 @@ const Categories = () => {
     );
     if (response.data.success) {
       setEditCategory(null);
+      setCategoryName("");
+      setCategoryDescription("");
       alert("Category Updated successfully");
       fetchCategories(); // Refresh the category list after adding a new category
     }else {
@@ -70,6 +73,31 @@ const Categories = () => {
   }
 
   };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this category?");
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(`http://localhost:3000/api/category/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("pos-token")}`,
+            },
+          }
+        );
+        if (response.data.success) {
+          alert("Category deleted successfully");
+          fetchCategories();
+        } else {
+          console.error("Error deleting the category", response.data);
+          alert("Error deleting category. Please try again");
+        }
+      } catch (error) {
+        console.error("Error deleting category", error);
+        alert("Error deleting category. Please try again");
+      }
+    }
+  }
 
 
 
@@ -133,7 +161,7 @@ const Categories = () => {
                     <td className="category-table-cell">{category.categoryName}</td>
                     <td className="category-table-cell">
                       <button className="category-edit-btn" onClick={() => handleEdit(category)}>Edit</button>
-                      <button className="category-delete-btn">Delete</button>
+                      <button className="category-delete-btn" onClick={() => handleDelete(category._id)}>Delete</button>
                     </td>
                   </tr>
                 ))}
