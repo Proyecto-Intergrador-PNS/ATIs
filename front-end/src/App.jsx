@@ -10,6 +10,7 @@ import Products from './components/Products';
 import Users from './components/Users';
 import Profile from './components/Profile';
 import Orders from './components/Orders';
+import DashboardSummary from './components/DashboardSummary';
 
 /**
  * @file App.jsx
@@ -44,7 +45,7 @@ function App() {
             The `Dashboard` component acts as a layout for all nested routes below. */}
         <Route path="/admin-dashboard" element={<ProtectedRoutes requireRole={["admin"]}> <Dashboard /> </ProtectedRoutes>}>
           {/* Index route for the dashboard. Renders when the path is exactly "/admin-dashboard". */}
-          <Route index element={<h1>Summary of Dashboard</h1>} />
+          <Route index element={<DashboardSummary />} />
 
           {/* Nested routes for the dashboard. These pages will be rendered inside the `Outlet` 
               within the `Dashboard` component. */}

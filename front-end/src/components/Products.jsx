@@ -167,7 +167,7 @@ const Products = () => {
                   <td className="category-table-cell">{product.name}</td>
                   <td className="category-table-cell">{product.category?.categoryName || ''}</td>
                   <td className="category-table-cell">{product.supplier?.name || ''}</td>
-                  <td className="category-table-cell">{product.price}</td>
+                  <td className="category-table-cell">${product.price}</td>
                   <td className="category-table-cell">{product.stock}</td>
                   <td className="category-table-cell">
                     <button className="category-edit-btn" onClick={() => handleEdit(product)}>Edit</button>
@@ -198,7 +198,10 @@ const Products = () => {
                   <option key={sup._id} value={sup._id}>{sup.name}</option>
                 ))}
               </select>
-              <input type="number" placeholder="Price" name="price" value={formData.price} onChange={handleChange} />
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <span style={{ marginRight: '4px' }}>$</span>
+                <input type="number" placeholder="Price" name="price" value={formData.price} onChange={handleChange} style={{ flex: 1 }} />
+              </div>
               <input type="number" placeholder="Stock" name="stock" value={formData.stock} onChange={handleChange} />
               <button type="submit">{editProductId ? 'Save Changes' : 'Add Product'}</button>
               {editProductId && (

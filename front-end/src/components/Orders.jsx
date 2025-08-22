@@ -39,13 +39,13 @@ const Orders = () => {
               <tr key={p.product?._id || idx}>
                 <td>{p.product?.name}</td>
                 <td>{p.quantity}</td>
-                <td>{p.price}</td>
-                <td>{p.price * p.quantity}</td>
+                <td>${p.price?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                <td>${(p.price * p.quantity).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div style={{textAlign:'right', fontWeight:'bold', fontSize:'1.2rem'}}>Total: {sale.total}</div>
+  <div style={{textAlign:'right', fontWeight:'bold', fontSize:'1.2rem'}}>Total: ${sale.total?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
         <button onClick={() => setInvoiceModal(null)} style={{marginTop:'1rem'}}>Cerrar</button>
       </div>
     </div>
@@ -201,7 +201,7 @@ const Orders = () => {
               <td>{p.name}</td>
               <td>{p.category?.categoryName}</td>
               <td>{p.supplier?.name}</td>
-              <td>{p.price}</td>
+              <td>${p.price?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
               <td>{p.stock}</td>
               <td>
                 <button onClick={() => { setBuyModal(p._id); setQuantity(1); }}>Comprar</button>
@@ -232,13 +232,13 @@ const Orders = () => {
                     <td>
                       <input type="number" min="0" max={item.max} value={item.quantity} onChange={e => handleSaleChange(idx, Math.min(item.max, e.target.value))} />
                     </td>
-                    <td>{products.find(p => p._id === item.product)?.price}</td>
-                    <td>{products.find(p => p._id === item.product)?.price * item.quantity || 0}</td>
+                    <td>${products.find(p => p._id === item.product)?.price?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                    <td>${((products.find(p => p._id === item.product)?.price || 0) * item.quantity).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div style={{marginTop:'1rem', fontWeight:'bold'}}>Total: {saleTotal}</div>
+            <div style={{marginTop:'1rem', fontWeight:'bold'}}>Total: ${saleTotal.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
             <button onClick={handleSale} disabled={loading}>Confirmar Venta</button>
             <button onClick={() => setSaleModal(false)} disabled={loading}>Cancelar</button>
           </div>
@@ -272,7 +272,7 @@ const Orders = () => {
               <td>{i + 1}</td>
               <td>{o.product?.name}</td>
               <td>{o.quantity}</td>
-              <td>{o.price}</td>
+              <td>${o.price?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
               <td>{o.user?.name || o.user?.email}</td>
               <td>{new Date(o.createdAt).toLocaleString()}</td>
             </tr>
@@ -299,11 +299,11 @@ const Orders = () => {
               <td>
                 {s.products.map((p, idx) => (
                   <div key={p.product?._id || idx}>
-                    {p.product?.name} x{p.quantity} (${p.price} c/u)
+                    {p.product?.name} x{p.quantity} (${p.price?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})} c/u)
                   </div>
                 ))}
               </td>
-              <td>{s.total}</td>
+              <td>${s.total?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
               <td>{s.user?.name || s.user?.email}</td>
               <td>{new Date(s.createdAt).toLocaleString()}</td>
               <td><button onClick={() => setInvoiceModal(s)}>Ver factura</button></td>

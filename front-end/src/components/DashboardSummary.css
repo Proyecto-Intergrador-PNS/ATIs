@@ -1,0 +1,63 @@
+.dashboard-summary-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.dashboard-summary-user {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+.dashboard-summary-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.dashboard-summary-card {
+  flex: 1 1 150px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.dashboard-summary-card h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.dashboard-summary-count {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #007bff;
+}
+.dashboard-summary-finance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: space-between;
+}
+.dashboard-summary-gain {
+  color: #155724;
+  background: #d4edda;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+}
+.dashboard-summary-loss {
+  color: #721c24;
+  background: #f8d7da;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+}
+.dashboard-summary-balance {
+  color: #0c5460;
+  background: #d1ecf1;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+}
