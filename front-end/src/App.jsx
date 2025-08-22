@@ -9,6 +9,7 @@ import Suppliers from './components/Suppliers';
 import Products from './components/Products';
 import Users from './components/Users';
 import Profile from './components/Profile';
+import Orders from './components/Orders';
 
 /**
  * @file App.jsx
@@ -50,7 +51,7 @@ function App() {
           <Route path='categories' element={<Categories />} />
           <Route path='products' element={<Products />} />
           <Route path='suppliers' element={<Suppliers />} />
-          <Route path='orders' element={<h1>Orders</h1>} />
+          <Route path='orders' element={<Orders />} />
           <Route path='users' element={<Users />} />
           <Route path='profile' element={<Profile />} />
           <Route path='logout' element={<h1>Logout</h1>} />

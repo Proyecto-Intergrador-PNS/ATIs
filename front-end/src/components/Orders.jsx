@@ -1,0 +1,319 @@
+
+import React, { useEffect, useState } from 'react';
+import './Orders.css';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+
+const Orders = () => {
+  const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [buyModal, setBuyModal] = useState(null); // productId
+  const [quantity, setQuantity] = useState(1);
+  const [message, setMessage] = useState('');
+  // Venta
+  const [saleModal, setSaleModal] = useState(false);
+  const [saleProducts, setSaleProducts] = useState([]); // [{product, quantity}]
+  const [sales, setSales] = useState([]);
+  const [invoiceModal, setInvoiceModal] = useState(null); // venta seleccionada
+  // Renderiza la factura de una venta
+  const renderInvoice = (sale) => (
+    <div className="orders-modal-overlay">
+      <div className="orders-modal" style={{minWidth:'400px', maxWidth:'600px'}}>
+        <h2 style={{textAlign:'center'}}>Factura de Venta</h2>
+        <div style={{marginBottom:'1rem'}}>
+          <strong>Fecha:</strong> {new Date(sale.createdAt).toLocaleString()}<br/>
+          <strong>Vendedor:</strong> {sale.user?.name || sale.user?.email}
+        </div>
+        <table style={{width:'100%', marginBottom:'1rem'}}>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sale.products.map((p, idx) => (
+              <tr key={p.product?._id || idx}>
+                <td>{p.product?.name}</td>
+                <td>{p.quantity}</td>
+                <td>{p.price}</td>
+                <td>{p.price * p.quantity}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div style={{textAlign:'right', fontWeight:'bold', fontSize:'1.2rem'}}>Total: {sale.total}</div>
+        <button onClick={() => setInvoiceModal(null)} style={{marginTop:'1rem'}}>Cerrar</button>
+      </div>
+    </div>
+  );
+
+  // Fetch products
+  const fetchProducts = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/product`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('pos-token')}` }
+      });
+      const data = await res.json();
+      if (data.success) setProducts(data.products);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch orders
+  const fetchOrders = async () => {
+    try {
+      const res = await fetch(`${API_URL}/orders`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('pos-token')}` }
+      });
+      const data = await res.json();
+      if (data.success) setOrders(data.orders);
+    } catch (e) {
+      console.error('Error fetching orders:', e);
+    }
+  };
+
+  // Fetch ventas
+  const fetchSales = async () => {
+    try {
+      const res = await fetch(`${API_URL}/sales`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('pos-token')}` }
+      });
+      const data = await res.json();
+      if (data.success) setSales(data.sales);
+    } catch (e) {
+      console.error('Error fetching sales:', e);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+    fetchOrders();
+    fetchSales();
+  }, []);
+  // Abrir modal de venta
+  const openSaleModal = () => {
+    setSaleProducts(products.map(p => ({ product: p._id, quantity: 0, name: p.name, max: p.stock })));
+    setSaleModal(true);
+  };
+
+  // Cambiar cantidad de producto en venta
+  const handleSaleChange = (idx, value) => {
+    setSaleProducts(saleProducts.map((item, i) => i === idx ? { ...item, quantity: Math.max(0, Number(value)) } : item));
+  };
+
+  // Calcular total de la venta
+  const saleTotal = saleProducts.reduce((acc, item) => {
+    const prod = products.find(p => p._id === item.product);
+    return acc + (prod && item.quantity > 0 ? prod.price * item.quantity : 0);
+  }, 0);
+
+  // Registrar venta
+  const handleSale = async () => {
+    setLoading(true);
+    setMessage('');
+    const selected = saleProducts.filter(item => item.quantity > 0);
+    if (selected.length === 0) {
+      setMessage('Selecciona al menos un producto y cantidad');
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await fetch(`${API_URL}/sales`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('pos-token')}`
+        },
+        body: JSON.stringify({ products: selected.map(({ product, quantity }) => ({ product, quantity })) })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMessage('Venta registrada correctamente');
+        setSaleModal(false);
+        fetchProducts();
+        fetchSales();
+      } else {
+        setMessage(data.message || 'Error al registrar venta');
+      }
+    } catch {
+      setMessage('Error al registrar venta');
+    }
+    setLoading(false);
+  };
+
+  // Comprar producto
+  const handleBuy = async (productId) => {
+    setLoading(true);
+    setMessage('');
+    try {
+      const res = await fetch(`${API_URL}/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('pos-token')}`
+        },
+        body: JSON.stringify({ productId, quantity: Number(quantity) })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMessage('Compra realizada y stock actualizado');
+        setBuyModal(null);
+        setQuantity(1);
+        fetchProducts();
+        fetchOrders();
+      } else {
+        setMessage(data.message || 'Error al comprar');
+      }
+    } catch {
+      setMessage('Error al comprar');
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div className="orders-container">
+      <h1>Órdenes y Compras de Productos</h1>
+      {message && <div className="orders-message">{message}</div>}
+      <h2>Productos Disponibles</h2>
+      <button style={{marginBottom:'1rem'}} onClick={openSaleModal}>Registrar Venta</button>
+      <table className="orders-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Proveedor</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((p, i) => (
+            <tr key={p._id}>
+              <td>{i + 1}</td>
+              <td>{p.name}</td>
+              <td>{p.category?.categoryName}</td>
+              <td>{p.supplier?.name}</td>
+              <td>{p.price}</td>
+              <td>{p.stock}</td>
+              <td>
+                <button onClick={() => { setBuyModal(p._id); setQuantity(1); }}>Comprar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {saleModal && (
+        <div className="orders-modal-overlay">
+          <div className="orders-modal">
+            <h3>Registrar Venta de Productos</h3>
+            <table style={{width:'100%'}}>
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Stock</th>
+                  <th>Cantidad a vender</th>
+                  <th>Precio</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {saleProducts.map((item, idx) => (
+                  <tr key={item.product}>
+                    <td>{item.name}</td>
+                    <td>{item.max}</td>
+                    <td>
+                      <input type="number" min="0" max={item.max} value={item.quantity} onChange={e => handleSaleChange(idx, Math.min(item.max, e.target.value))} />
+                    </td>
+                    <td>{products.find(p => p._id === item.product)?.price}</td>
+                    <td>{products.find(p => p._id === item.product)?.price * item.quantity || 0}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div style={{marginTop:'1rem', fontWeight:'bold'}}>Total: {saleTotal}</div>
+            <button onClick={handleSale} disabled={loading}>Confirmar Venta</button>
+            <button onClick={() => setSaleModal(false)} disabled={loading}>Cancelar</button>
+          </div>
+        </div>
+      )}
+      {buyModal && (
+        <div className="orders-modal-overlay">
+          <div className="orders-modal">
+            <h3>Comprar producto</h3>
+            <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)} />
+            <button onClick={() => handleBuy(buyModal)} disabled={loading}>Confirmar compra</button>
+            <button onClick={() => setBuyModal(null)} disabled={loading}>Cancelar</button>
+          </div>
+        </div>
+      )}
+      <h2>Historial de Órdenes de Compra</h2>
+      <table className="orders-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((o, i) => (
+            <tr key={o._id}>
+              <td>{i + 1}</td>
+              <td>{o.product?.name}</td>
+              <td>{o.quantity}</td>
+              <td>{o.price}</td>
+              <td>{o.user?.name || o.user?.email}</td>
+              <td>{new Date(o.createdAt).toLocaleString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2>Historial de Ventas</h2>
+      <table className="orders-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Productos</th>
+            <th>Total</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Factura</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sales.map((s, i) => (
+            <tr key={s._id}>
+              <td>{i + 1}</td>
+              <td>
+                {s.products.map((p, idx) => (
+                  <div key={p.product?._id || idx}>
+                    {p.product?.name} x{p.quantity} (${p.price} c/u)
+                  </div>
+                ))}
+              </td>
+              <td>{s.total}</td>
+              <td>{s.user?.name || s.user?.email}</td>
+              <td>{new Date(s.createdAt).toLocaleString()}</td>
+              <td><button onClick={() => setInvoiceModal(s)}>Ver factura</button></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {invoiceModal && renderInvoice(invoiceModal)}
+    </div>
+  );
+};
+
+export default Orders;

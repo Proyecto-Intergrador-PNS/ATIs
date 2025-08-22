@@ -9,6 +9,8 @@ import supplierRoutes from './routes/supplier.js';
 import productRoutes from './routes/product.js';
 import userRoutes from './routes/user.js';
 import profileRoutes from './routes/profile.js';
+import orderRoutes from './routes/order.js';
+import saleRoutes from './routes/sale.js';
 
 
 const app = express();
@@ -21,8 +23,12 @@ app.use('/api/category', categoryRoutes);
 app.use('/api/supplier', supplierRoutes);
 app.use('/api/product', productRoutes);
 
+
 app.use('/api/users', userRoutes);
 app.use('/api/profile', profileRoutes);
+
+app.use('/api/orders', orderRoutes);
+app.use('/api/sales', saleRoutes);
 
 app.listen(process.env.PORT, () => {
   connectDB();
