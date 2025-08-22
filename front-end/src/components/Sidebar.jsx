@@ -1,7 +1,9 @@
-import React from 'react'
-import { FaHome, FaTable, FaBox, FaTruck, FaShoppingCart, FaUsers, FaCog, FaSignOutAlt } from 'react-icons/fa'
-import { NavLink } from 'react-router'
-import './Sidebar.css'
+
+import React from 'react';
+import { FaHome, FaTable, FaBox, FaTruck, FaShoppingCart, FaUsers, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { NavLink, useNavigate } from 'react-router';
+import { useAuth } from '../context/AuthContext';
+import './Sidebar.css';
 
 /**
  * @file Sidebar.js
@@ -18,6 +20,8 @@ import './Sidebar.css'
  * @returns {JSX.Element} The Sidebar component.
  */
 const Sidebar = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   /**
    * Defines the configuration for each menu item in the sidebar.
    *
@@ -28,16 +32,15 @@ const Sidebar = () => {
    * @property {boolean} isParent - Indicates if the path should be an exact match for the active link.
    */
   const menuItems = [
-      { name: "Dashboard", path: "/admin-dashboard", icon: <FaHome />, isParent: true},
-      { name: "Categories", path: "/admin-dashboard/categories", icon: <FaTable />, isParent: false},
-      { name: "Products", path: "/admin-dashboard/products", icon: <FaBox />, isParent: false},
-      { name: "Suppliers", path: "/admin-dashboard/suppliers", icon: <FaTruck />, isParent: false},
-      { name: "Orders", path: "/admin-dashboard/orders", icon: <FaShoppingCart />, isParent: false},
-      { name: "Users", path: "/admin-dashboard/users", icon: <FaUsers />, isParent: false},
-      { name: "Profile", path: "/admin-dashboard/profile", icon: <FaCog />, isParent: false},
-      { name: "Logout", path: "/admin-dashboard/logout", icon: <FaSignOutAlt />, isParent: false},
-
-  ]
+    { name: "Dashboard", path: "/admin-dashboard", icon: <FaHome />, isParent: true },
+    { name: "Categories", path: "/admin-dashboard/categories", icon: <FaTable />, isParent: false },
+    { name: "Products", path: "/admin-dashboard/products", icon: <FaBox />, isParent: false },
+    { name: "Suppliers", path: "/admin-dashboard/suppliers", icon: <FaTruck />, isParent: false },
+    { name: "Orders", path: "/admin-dashboard/orders", icon: <FaShoppingCart />, isParent: false },
+    { name: "Users", path: "/admin-dashboard/users", icon: <FaUsers />, isParent: false },
+    { name: "Profile", path: "/admin-dashboard/profile", icon: <FaCog />, isParent: false },
+    { name: "Logout", path: "/logout-action", icon: <FaSignOutAlt />, isParent: false, action: true },
+  ];
 
   return (
     <div className="sidebar">
@@ -52,16 +55,30 @@ const Sidebar = () => {
            {/* Dynamically map over menuItems to render each navigation link */}
           {menuItems.map((item) => (
             <li className="sidebar-menu-item" key={item.name}>
-              <NavLink
-                end={item.isParent}
-                className={({ isActive }) =>
-                  `sidebar-link${isActive ? ' active' : ''}`
-                }
-                to={item.path}
-              >
-                <span className="sidebar-icon">{item.icon}</span>
-                <span className="sidebar-label">{item.name}</span>
-              </NavLink>
+              {item.action ? (
+                <button
+                  className="sidebar-link"
+                  style={{ background: 'none', border: 'none', padding: 0, width: '100%', textAlign: 'left', cursor: 'pointer' }}
+                  onClick={() => {
+                    logout();
+                    navigate('/login');
+                  }}
+                >
+                  <span className="sidebar-icon">{item.icon}</span>
+                  <span className="sidebar-label">{item.name}</span>
+                </button>
+              ) : (
+                <NavLink
+                  end={item.isParent}
+                  className={({ isActive }) =>
+                    `sidebar-link${isActive ? ' active' : ''}`
+                  }
+                  to={item.path}
+                >
+                  <span className="sidebar-icon">{item.icon}</span>
+                  <span className="sidebar-label">{item.name}</span>
+                </NavLink>
+              )}
             </li>
           ))}
         </ul>
