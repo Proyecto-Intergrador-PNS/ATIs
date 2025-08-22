@@ -2,11 +2,13 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import connectDB from './db/connection.js';
+
 import authRoutes from './routes/auth.js';
 import categoryRoutes from './routes/category.js';
 import supplierRoutes from './routes/supplier.js';
 import productRoutes from './routes/product.js';
 import userRoutes from './routes/user.js';
+import profileRoutes from './routes/profile.js';
 
 
 const app = express();
@@ -18,7 +20,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/supplier', supplierRoutes);
 app.use('/api/product', productRoutes);
+
 app.use('/api/users', userRoutes);
+app.use('/api/profile', profileRoutes);
 
 app.listen(process.env.PORT, () => {
   connectDB();
