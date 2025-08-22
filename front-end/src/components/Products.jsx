@@ -147,35 +147,37 @@ const Products = () => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Supplier</th>
-              <th>Price</th>
-              <th>Stock</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product, index) => (
-              <tr key={product._id}>
-                <td>{index + 1}</td>
-                <td>{product.name}</td>
-                <td>{product.category?.categoryName || ''}</td>
-                <td>{product.supplier?.name || ''}</td>
-                <td>{product.price}</td>
-                <td>{product.stock}</td>
-                <td>
-                  <button className="edit-btn" onClick={() => handleEdit(product)}>Edit</button>
-                  <button className="delete-btn" onClick={() => handleDelete(product._id)}>Delete</button>
-                </td>
+        <div className="category-table-container">
+          <table className="category-table">
+            <thead>
+              <tr className="category-table-header-row">
+                <th className="category-table-header">#</th>
+                <th className="category-table-header">Name</th>
+                <th className="category-table-header">Category</th>
+                <th className="category-table-header">Supplier</th>
+                <th className="category-table-header">Price</th>
+                <th className="category-table-header">Stock</th>
+                <th className="category-table-header">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {products.map((product, index) => (
+                <tr key={product._id} className="category-table-row">
+                  <td className="category-table-cell">{index + 1}</td>
+                  <td className="category-table-cell">{product.name}</td>
+                  <td className="category-table-cell">{product.category?.categoryName || ''}</td>
+                  <td className="category-table-cell">{product.supplier?.name || ''}</td>
+                  <td className="category-table-cell">{product.price}</td>
+                  <td className="category-table-cell">{product.stock}</td>
+                  <td className="category-table-cell">
+                    <button className="category-edit-btn" onClick={() => handleEdit(product)}>Edit</button>
+                    <button className="category-delete-btn" onClick={() => handleDelete(product._id)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
       {addEditModal && (
         <div className="product-modal-overlay">
