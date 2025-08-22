@@ -76,3 +76,5 @@ const deleteCategory = async (req, res) => {
 }
 
 export { addCategory, getCategories, updateCategory, deleteCategory };
+
+//yeah
