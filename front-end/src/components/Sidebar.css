@@ -1,3 +1,73 @@
+/* Paleta de colores global */
+:root {
+  --color-dark-blue: #003049;
+  --color-light-blue: #e5eaf1;
+  --color-beige: #fdf0d5;
+  --color-red: #780000;
+  --color-dark-red: #4d0000;
+}
+
+/* --- SIDEBAR MÁS SIMPLE Y MODERNO --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 2rem 1rem;
+  background: var(--color-dark-blue);
+  color: var(--color-beige);
+  width: 5.5rem;
+  position: fixed;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+  z-index: 10;
+  border-right: 2px solid var(--color-light-blue);
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    width: 14rem;
+  }
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1.2rem;
+  border-radius: 1rem;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+  text-decoration: none;
+  color: var(--color-beige);
+  font-size: 1.08rem;
+  font-weight: 500;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  gap: 0.8rem;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  background: var(--color-beige);
+  color: var(--color-dark-blue);
+  box-shadow: 0 4px 16px rgba(0, 48, 73, 0.1);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.sidebar-icon {
+  font-size: 1.5rem;
+  color: var(--color-beige);
+  transition: color 0.2s;
+}
+
+.sidebar-link:hover .sidebar-icon,
+.sidebar-link.active .sidebar-icon {
+  color: var(--color-dark-blue);
+}
+
+/* --- ELIMINA EL DIVIDER --- */
+.divider {
+  display: none;
+}
 /* Category Table Styles */
 .category-table-container {
   background: #fff;
@@ -176,27 +246,7 @@
  * The sidebar is a vertical navigation element that adapts to different
  * screen sizes, expanding on larger devices.*/
 
-/*Base styles for the sidebar container.
- *
- * - display: flex and flex-direction: column arrange the elements vertically.
- * - height: 100vh ensures it takes up the full height of the viewport.
- * - background: linear-gradient creates a dark-to-darker gradient for the background.
- * - width: 6rem is the default (collapsed) width on mobile devices.
- * - position: fixed keeps it visible as the main content scrolls.
- * - transition: width smooths the animation when expanding the sidebar.*/
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding: 1.5rem 1rem;
-  background: linear-gradient(135deg, #232526 0%, #414345 100%);
-  color: #fff;
-  width: 6rem;
-  position: fixed;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-  border-radius: 0;
-  transition: width 0.3s cubic-bezier(.4,0,.2,1);
-}
+
 
 /*Media query for larger screens (e.g., tablets and desktops).
  *

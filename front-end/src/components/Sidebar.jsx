@@ -58,7 +58,6 @@ const Sidebar = () => {
               {item.action ? (
                 <button
                   className="sidebar-link"
-                  style={{ background: 'none', border: 'none', padding: 0, width: '100%', textAlign: 'left', cursor: 'pointer' }}
                   onClick={() => {
                     logout();
                     navigate('/login');

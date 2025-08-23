@@ -119,7 +119,7 @@ const Orders = () => {
     setMessage('');
     const selected = saleProducts.filter(item => item.quantity > 0);
     if (selected.length === 0) {
-      setMessage('Selecciona al menos un producto y cantidad');
+      setMessage('Select atleast one product');
       setLoading(false);
       return;
     }
@@ -134,15 +134,15 @@ const Orders = () => {
       });
       const data = await res.json();
       if (data.success) {
-        setMessage('Venta registrada correctamente');
+        setMessage('Sale was made successfuly');
         setSaleModal(false);
         fetchProducts();
         fetchSales();
       } else {
-        setMessage(data.message || 'Error al registrar venta');
+        setMessage(data.message || 'Cant register the sele');
       }
     } catch {
-      setMessage('Error al registrar venta');
+      setMessage('Cant register the sele');
     }
     setLoading(false);
   };
@@ -162,16 +162,16 @@ const Orders = () => {
       });
       const data = await res.json();
       if (data.success) {
-        setMessage('Compra realizada y stock actualizado');
+        setMessage('Stock Updated');
         setBuyModal(null);
         setQuantity(1);
         fetchProducts();
         fetchOrders();
       } else {
-        setMessage(data.message || 'Error al comprar');
+        setMessage(data.message || 'Error buying products');
       }
     } catch {
-      setMessage('Error al comprar');
+      setMessage('Error buying products');
     }
     setLoading(false);
   };
