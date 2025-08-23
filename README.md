@@ -1,6 +1,8 @@
 # ATIs Project
 
-Este proyecto está compuesto por dos partes principales: un **front-end** desarrollado con React y Vite, y un **back-end** construido con Node.js y Express. A continuación se detallan la estructura del proyecto, las bases de datos, dependencias, librerías utilizadas y las instrucciones básicas para su uso y despliegue.
+Este proyecto es un sistema completo de gestión de inventario, ventas y compras, compuesto por dos partes principales: un **front-end** desarrollado con React + Vite y un **back-end** construido con Node.js, Express y MongoDB. Incluye autenticación JWT, gestión de usuarios y roles, administración de productos, proveedores, categorías, órdenes de compra y ventas, así como dashboards y reportes.
+
+A continuación se detallan la estructura, modelos, endpoints, dependencias y las instrucciones para su despliegue y uso.
 
 ---
 
@@ -13,22 +15,27 @@ ATIs/
 │   ├── eslint.config.js
 │   ├── index.html
 │   ├── package.json
-│   ├── README.md
 │   ├── vite.config.js
 │   ├── public/
-│   │   └── vite.svg
 │   └── src/
-│       ├── App.css
 │       ├── App.jsx
 │       ├── main.jsx
 │       ├── assets/
-│       │   └── react.svg
 │       ├── components/
+│       │   ├── Categories.jsx
+│       │   ├── DashboardSummary.jsx
+│       │   ├── Orders.jsx
+│       │   ├── Products.jsx
+│       │   ├── Profile.jsx
+│       │   ├── Sidebar.jsx
+│       │   ├── Suppliers.jsx
+│       │   └── Users.jsx
 │       ├── context/
 │       │   └── AuthContext.jsx
 │       ├── pages/
-│       │   ├── Login.css
-│       │   └── Login.jsx
+│       │   ├── Dashboard.jsx
+│       │   ├── Login.jsx
+│       │   └── ProfilePage.jsx
 │       └── utils/
 │           ├── ProtectedRoutes.jsx
 │           └── Root.jsx
@@ -37,33 +44,52 @@ ATIs/
     ├── index.js
     ├── package.json
     ├── seed.js
-    ├── controllers/
-    │   └── authController.js
     ├── db/
     │   └── connection.js
+    ├── controllers/
+    │   ├── AuthController.js
+    │   ├── UserController.js
+    │   ├── productController.js
+    │   ├── categoryController.js
+    │   ├── supplierController.js
+    │   ├── orderController.js
+    │   ├── saleController.js
+    │   └── ProfileController.js
+    ├── middleware/
+    │   └── authMiddleware.js
     ├── models/
-    │   └── User.js
+    │   ├── User.js
+    │   ├── Product.js
+    │   ├── Category.js
+    │   ├── Supplier.js
+    │   ├── Order.js
+    │   └── Sale.js
     └── routes/
-        └── auth.js
+        ├── auth.js
+        ├── user.js
+        ├── product.js
+        ├── category.js
+        ├── supplier.js
+        ├── order.js
+        ├── sale.js
+        └── profile.js
 ```
 
 ---
 
 ## Descripción General
 
-- **front-end/**: Aplicación cliente desarrollada en React, gestionada con Vite para un desarrollo rápido y eficiente.
-- **server/**: API RESTful construida con Node.js y Express, encargada de la autenticación y gestión de usuarios.
+- **front-end/**: SPA en React + Vite. Permite login, gestión de usuarios, productos, proveedores, categorías, órdenes de compra, ventas y perfil. Incluye dashboard con resumen de inventario y finanzas.
+- **server/**: API RESTful en Node.js + Express + MongoDB. Provee endpoints para autenticación, usuarios, productos, proveedores, categorías, órdenes, ventas y perfil. Seguridad con JWT y roles.
 
 ---
 
-## Base de Datos
+## Modelos de Base de Datos (MongoDB)
 
-- **Tipo:** MongoDB
 - **Ubicación de la conexión:** `server/db/connection.js`
-- **Modelo principal:** `User.js` en `server/models/`
 - **Seed de datos:** `server/seed.js` para poblar la base de datos con usuarios de ejemplo.
 
-### Estructura de la colección `users`
+### users
 
 | Campo    | Tipo   | Requerido | Único | Descripción                                                    |
 | -------- | ------ | --------- | ----- | -------------------------------------------------------------- |
@@ -73,39 +99,89 @@ ATIs/
 | address  | String | No        | No    | Dirección del usuario                                          |
 | role     | String | No        | No    | Rol del usuario (`admin` o `customer`), por defecto `customer` |
 
+### products
+
+| Campo    | Tipo     | Requerido | Descripción            |
+| -------- | -------- | --------- | ---------------------- |
+| name     | String   | Sí        | Nombre del producto    |
+| category | ObjectId | Sí        | Referencia a categoría |
+| supplier | ObjectId | Sí        | Referencia a proveedor |
+| price    | Number   | Sí        | Precio unitario        |
+| stock    | Number   | Sí        | Stock disponible       |
+
+### categories
+
+| Campo               | Tipo   | Requerido | Descripción         |
+| ------------------- | ------ | --------- | ------------------- |
+| categoryName        | String | Sí        | Nombre de categoría |
+| categoryDescription | String | Sí        | Descripción         |
+
+### suppliers
+
+| Campo     | Tipo   | Requerido | Descripción          |
+| --------- | ------ | --------- | -------------------- |
+| name      | String | Sí        | Nombre del proveedor |
+| email     | String | Sí        | Email del proveedor  |
+| number    | String | Sí        | Teléfono             |
+| address   | String | Sí        | Dirección            |
+| createdAt | Date   | No        | Fecha de registro    |
+
+### orders
+
+| Campo     | Tipo     | Requerido | Descripción        |
+| --------- | -------- | --------- | ------------------ |
+| product   | ObjectId | Sí        | Producto comprado  |
+| quantity  | Number   | Sí        | Cantidad comprada  |
+| price     | Number   | Sí        | Precio unitario    |
+| user      | ObjectId | Sí        | Usuario que compra |
+| createdAt | Date     | No        | Fecha de la orden  |
+
+### sales
+
+| Campo     | Tipo     | Requerido | Descripción                  |
+| --------- | -------- | --------- | ---------------------------- |
+| products  | Array    | Sí        | [{product, quantity, price}] |
+| total     | Number   | Sí        | Total de la venta            |
+| user      | ObjectId | Sí        | Usuario que vende            |
+| createdAt | Date     | No        | Fecha de la venta            |
+
 ---
 
 ## Dependencias y Librerías
 
-
 ### Herramientas Necesarias
-- **Docker**: Aplicativo la cual almacenara las imágenes necesarias.
-- ** MongoDB**: La base de datos necesaria para poder almacenar las entidades del proyecto, Imagen y Contenedor en Docker es lo recomendable.
-- ** MongoCompass**: Aplicativo el cual permitirá ver la base de datos y sus componentes
 
-### Instalacion de la Imagen de Mongo en Docker
+- **Docker**: Para levantar MongoDB fácilmente.
+- **MongoDB**: Base de datos principal.
+- **MongoCompass**: Visualización de la base de datos.
+
+### Instalación de MongoDB con Docker
+
 ```bash
 docker run -d --name mongoDB -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin123 -v mongodata:/data/db mongo
 ```
-## Nota
-Note que la Instalación ya cuenta con contraseña y usuario escritos en el comando, se saben que esas no son buenas prácticas, pero esto es un proyecto de carácter demostrativo y educativo. Si desea cambiar el Username y Password de la imagen de mongo, por favor actualizar las credenciales en el código también, el cual permitirá que el back-end logre comunicar con la base de datos, ya que el código automáticamente crear y genera lo fundamental para poder funcionar.
 
+> **Nota:** Si cambias usuario/contraseña, actualiza también el archivo `.env` en `server/`.
 
 ### Front-end
 
-- **React**: Librería principal para la construcción de interfaces de usuario.
-- **Vite**: Herramienta de build y desarrollo rápido para proyectos frontend.
-- **react-router-dom**: Para el manejo de rutas en la SPA.
-- **Context API**: Para la gestión de autenticación y estado global.
-- **Otras**: ESLint para linting, CSS para estilos.
+- **React**
+- **Vite**
+- **react-router-dom**
+- **Context API**
+- **Axios**
+- **Tailwind CSS**
+- **ESLint**
 
 ### Back-end
 
-- **Express**: Framework para la creación de servidores HTTP.
-- **Mongoose**: ODM para interactuar con MongoDB.
-- **bcryptjs**: Para el hasheo de contraseñas.
-- **jsonwebtoken**: Para la autenticación basada en tokens JWT.
-- **dotenv**: Para la gestión de variables de entorno.
+- **Express**
+- **Mongoose**
+- **bcrypt**
+- **jsonwebtoken**
+- **dotenv**
+- **cors**
+- **nodemon**
 
 ---
 
@@ -132,7 +208,10 @@ git clone <url-del-repositorio>
 
 ### 3. Configurar variables de entorno
 
-- Crear un archivo `.env` en `server/` con la cadena de conexión de MongoDB y otras variables necesarias.
+- Crear un archivo `.env` en `server/` con la cadena de conexión de MongoDB y otras variables necesarias:
+  - `MONGO_URI`
+  - `JWT_SECRET`
+  - `PORT`
 
 ### 4. Crear el usuario Admin en la base de datos
 
@@ -157,19 +236,64 @@ npm run dev
 
 ---
 
-## Notas Adicionales
+## Funcionalidades Principales
 
-- El sistema de rutas protegidas se encuentra en `front-end/src/utils/ProtectedRoutes.jsx`.
-- El contexto de autenticación está en `front-end/src/context/AuthContext.jsx`.
-- El login y la gestión de usuarios se realiza mediante JWT.
-- El back-end expone rutas de autenticación en `server/routes/auth.js`.
+### Front-end
+
+- Login y autenticación JWT
+- Dashboard con resumen de inventario, ventas, compras y balance
+- Gestión CRUD de usuarios (solo admin)
+- Gestión CRUD de productos, proveedores y categorías
+- Registro de órdenes de compra y ventas
+- Edición de perfil de usuario
+- Rutas protegidas según rol (admin/customer)
+- UI moderna y responsiva (Tailwind CSS)
+
+### Back-end
+
+- API RESTful con rutas protegidas por JWT y roles
+- Endpoints para usuarios, productos, proveedores, categorías, órdenes, ventas y perfil
+- Validaciones y manejo de errores
+- Hash de contraseñas y seguridad básica
+
+#### Principales Endpoints
+
+- `POST   /api/auth/login` — Login de usuario
+- `GET    /api/users` — Listar usuarios (admin)
+- `POST   /api/users` — Crear usuario (admin)
+- `PUT    /api/users/:id` — Editar usuario (admin)
+- `DELETE /api/users/:id` — Eliminar usuario (admin)
+- `GET    /api/product` — Listar productos
+- `POST   /api/product/add` — Crear producto
+- `PUT    /api/product/:id` — Editar producto
+- `DELETE /api/product/:id` — Eliminar producto
+- `GET    /api/category` — Listar categorías
+- `POST   /api/category/add` — Crear categoría
+- `PUT    /api/category/:id` — Editar categoría
+- `DELETE /api/category/:id` — Eliminar categoría
+- `GET    /api/supplier` — Listar proveedores
+- `POST   /api/supplier/add` — Crear proveedor
+- `PUT    /api/supplier/:id` — Editar proveedor
+- `DELETE /api/supplier/:id` — Eliminar proveedor
+- `GET    /api/orders` — Listar órdenes de compra
+- `POST   /api/orders` — Registrar compra
+- `GET    /api/sales` — Listar ventas
+- `POST   /api/sales` — Registrar venta
+- `GET    /api/profile` — Obtener perfil
+- `PUT    /api/profile` — Editar perfil
 
 ---
 
-## Desarrollador por el Grupo La Niña, La Pinta y La Santa María
+## Notas Adicionales
 
--Full-stack: Ricardo Contreras
+- El sistema de rutas protegidas está en `front-end/src/utils/ProtectedRoutes.jsx`.
+- El contexto de autenticación está en `front-end/src/context/AuthContext.jsx`.
+- El login y la gestión de usuarios se realiza mediante JWT.
+- El back-end expone rutas RESTful en `server/routes/`.
+- El dashboard y reportes están en `front-end/src/components/DashboardSummary.jsx`.
 
-Back-End:
+---
 
-Front-End:
+## Desarrollado por el Grupo La Niña, La Pinta y La Santa María
+
+- Full-stack: Ricardo Contreras
