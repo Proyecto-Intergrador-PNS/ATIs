@@ -20,17 +20,17 @@ const Orders = () => {
   const renderInvoice = (sale) => (
     <div className="orders-modal-overlay">
       <div className="orders-modal" style={{minWidth:'400px', maxWidth:'600px'}}>
-        <h2 style={{textAlign:'center'}}>Factura de Venta</h2>
+  <h2 className="orders-invoice-title" style={{textAlign:'center'}}>Sales Invoice</h2>
         <div style={{marginBottom:'1rem'}}>
-          <strong>Fecha:</strong> {new Date(sale.createdAt).toLocaleString()}<br/>
-          <strong>Vendedor:</strong> {sale.user?.name || sale.user?.email}
+          <strong>Date:</strong> {new Date(sale.createdAt).toLocaleString()}<br/>
+          <strong>Seller:</strong> {sale.user?.name || sale.user?.email}
         </div>
         <table style={{width:'100%', marginBottom:'1rem'}}>
           <thead>
             <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
               <th>Subtotal</th>
             </tr>
           </thead>
@@ -45,8 +45,8 @@ const Orders = () => {
             ))}
           </tbody>
         </table>
-  <div style={{textAlign:'right', fontWeight:'bold', fontSize:'1.2rem'}}>Total: ${sale.total?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
-        <button onClick={() => setInvoiceModal(null)} style={{marginTop:'1rem'}}>Cerrar</button>
+        <div style={{textAlign:'right', fontWeight:'bold', fontSize:'1.2rem'}}>Total: ${sale.total?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
+        <button onClick={() => setInvoiceModal(null)} style={{marginTop:'1rem'}}>Close</button>
       </div>
     </div>
   );
@@ -178,20 +178,20 @@ const Orders = () => {
 
   return (
     <div className="orders-container">
-      <h1>Órdenes y Compras de Productos</h1>
-      {message && <div className="orders-message">{message}</div>}
-      <h2>Productos Disponibles</h2>
-      <button style={{marginBottom:'1rem'}} onClick={openSaleModal}>Registrar Venta</button>
+  <h1 className="orders-title-xl">Orders and Product Purchases</h1>
+  {message && <div className="orders-message">{message}</div>}
+  <h2 className="orders-title-lg">Available Products</h2>
+  <button style={{marginBottom:'1rem'}} onClick={openSaleModal}>Register Sale</button>
       <table className="orders-table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Proveedor</th>
-            <th>Precio</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Supplier</th>
+            <th>Price</th>
             <th>Stock</th>
-            <th>Acción</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -204,7 +204,7 @@ const Orders = () => {
               <td>${p.price?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
               <td>{p.stock}</td>
               <td>
-                <button onClick={() => { setBuyModal(p._id); setQuantity(1); }}>Comprar</button>
+                <button onClick={() => { setBuyModal(p._id); setQuantity(1); }}>Buy</button>
               </td>
             </tr>
           ))}
@@ -213,14 +213,14 @@ const Orders = () => {
       {saleModal && (
         <div className="orders-modal-overlay">
           <div className="orders-modal">
-            <h3>Registrar Venta de Productos</h3>
+            <h3>Register Product Sale</h3>
             <table style={{width:'100%'}}>
               <thead>
                 <tr>
-                  <th>Producto</th>
+                  <th>Product</th>
                   <th>Stock</th>
-                  <th>Cantidad a vender</th>
-                  <th>Precio</th>
+                  <th>Quantity to sell</th>
+                  <th>Price</th>
                   <th>Subtotal</th>
                 </tr>
               </thead>
@@ -239,31 +239,31 @@ const Orders = () => {
               </tbody>
             </table>
             <div style={{marginTop:'1rem', fontWeight:'bold'}}>Total: ${saleTotal.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</div>
-            <button onClick={handleSale} disabled={loading}>Confirmar Venta</button>
-            <button onClick={() => setSaleModal(false)} disabled={loading}>Cancelar</button>
+            <button onClick={handleSale} disabled={loading}>Confirm Sale</button>
+            <button onClick={() => setSaleModal(false)} disabled={loading}>Cancel</button>
           </div>
         </div>
       )}
       {buyModal && (
         <div className="orders-modal-overlay">
           <div className="orders-modal">
-            <h3>Comprar producto</h3>
+            <h3>Buy product</h3>
             <input type="number" min="1" value={quantity} onChange={e => setQuantity(e.target.value)} />
-            <button onClick={() => handleBuy(buyModal)} disabled={loading}>Confirmar compra</button>
-            <button onClick={() => setBuyModal(null)} disabled={loading}>Cancelar</button>
+            <button onClick={() => handleBuy(buyModal)} disabled={loading}>Confirm purchase</button>
+            <button onClick={() => setBuyModal(null)} disabled={loading}>Cancel</button>
           </div>
         </div>
       )}
-      <h2>Historial de Órdenes de Compra</h2>
+  <h2 className="orders-title-lg">Purchase Order History</h2>
       <table className="orders-table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Usuario</th>
-            <th>Fecha</th>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>User</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
@@ -280,16 +280,16 @@ const Orders = () => {
         </tbody>
       </table>
 
-      <h2>Historial de Ventas</h2>
+  <h2 className="orders-title-lg">Sales History</h2>
       <table className="orders-table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Productos</th>
+            <th>ID</th>
+            <th>Products</th>
             <th>Total</th>
-            <th>Usuario</th>
-            <th>Fecha</th>
-            <th>Factura</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Invoice</th>
           </tr>
         </thead>
         <tbody>
@@ -306,7 +306,7 @@ const Orders = () => {
               <td>${s.total?.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
               <td>{s.user?.name || s.user?.email}</td>
               <td>{new Date(s.createdAt).toLocaleString()}</td>
-              <td><button onClick={() => setInvoiceModal(s)}>Ver factura</button></td>
+              <td><button onClick={() => setInvoiceModal(s)}>View invoice</button></td>
             </tr>
           ))}
         </tbody>

@@ -1,1 +1,77 @@
+/* Paleta de colores
+Rojo oscuro: #780000
+Rojo: #C1121F
+Beige: #FDF0D5
+Azul oscuro: #003049
+Azul claro: #669BBC
+*/
+
+:root {
+	--color-dark-red: #780000;
+	--color-red: #C1121F;
+	--color-beige: #FDF0D5;
+	--color-dark-blue: #003049;
+	--color-light-blue: #669BBC;
+}
+
+body {
+	background: var(--color-beige);
+	color: var(--color-dark-blue);
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: var(--color-light-blue);
+	text-decoration: none;
+}
+a:hover {
+	color: var(--color-red);
+}
+
+button, .btn {
+	background: var(--color-dark-red);
+	color: var(--color-beige);
+	border: none;
+	border-radius: 4px;
+	padding: 0.5em 1.2em;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+button:hover, .btn:hover {
+	background: var(--color-red);
+}
+
+input, select, textarea {
+	border: 1px solid var(--color-light-blue);
+	border-radius: 4px;
+	padding: 0.4em 0.8em;
+	background: #fff;
+	color: var(--color-dark-blue);
+}
+
+header, .header {
+	background: var(--color-dark-blue);
+	color: var(--color-beige);
+	padding: 1em 2em;
+}
+
+.card {
+	background: #fff;
+	border: 1px solid var(--color-light-blue);
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+	padding: 1.5em;
+	margin: 1em 0;
+}
+
+.primary {
+	background: var(--color-dark-red);
+	color: var(--color-beige);
+}
+.secondary {
+	background: var(--color-light-blue);
+	color: var(--color-dark-blue);
+}
 @import "tailwindcss";

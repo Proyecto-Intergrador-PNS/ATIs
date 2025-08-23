@@ -16,8 +16,8 @@
   width: 200px;
 }
 .products-add-btn {
-  background: #2563eb;
-  color: #fff;
+  background: var(--color-dark-red);
+  color: var(--color-beige);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -29,12 +29,13 @@ table {
   margin-top: 1rem;
 }
 th, td {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-light-blue);
   padding: 0.75rem;
   text-align: left;
 }
 th {
-  background: #f3f4f6;
+  background: var(--color-dark-blue);
+  color: var(--color-beige);
 }
 .edit-btn, .delete-btn {
   margin-right: 0.5rem;
@@ -44,12 +45,12 @@ th {
   cursor: pointer;
 }
 .edit-btn {
-  background: #fbbf24;
-  color: #fff;
+  background: var(--color-light-blue);
+  color: var(--color-dark-blue);
 }
 .delete-btn {
-  background: #ef4444;
-  color: #fff;
+  background: var(--color-red);
+  color: var(--color-beige);
 }
 .product-modal-overlay {
   position: fixed;
@@ -84,8 +85,8 @@ select, input[type="text"], input[type="number"] {
   border-radius: 4px;
 }
 button[type="submit"] {
-  background: #2563eb;
-  color: #fff;
+  background: var(--color-dark-red);
+  color: var(--color-beige);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;

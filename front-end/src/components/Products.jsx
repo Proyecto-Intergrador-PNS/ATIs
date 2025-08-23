@@ -151,7 +151,7 @@ const Products = () => {
           <table className="category-table">
             <thead>
               <tr className="category-table-header-row">
-                <th className="category-table-header">#</th>
+                <th className="category-table-header">ID</th>
                 <th className="category-table-header">Name</th>
                 <th className="category-table-header">Category</th>
                 <th className="category-table-header">Supplier</th>

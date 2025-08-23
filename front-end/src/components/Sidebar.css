@@ -17,34 +17,34 @@
 }
 
 .category-table-header-row {
-  background: #f3f4f6;
+  background: var(--color-dark-blue);
 }
 
 .category-table-header {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-light-blue);
   padding: 0.75rem 1rem;
   font-weight: 600;
-  color: #232526;
-  background: #f3f4f6;
+  color: var(--color-beige);
+  background: var(--color-dark-blue);
 }
 
 .category-table-row {
   transition: background 0.2s;
 }
 .category-table-row:hover {
-  background: #f7f7fa;
+  background: var(--color-beige);
 }
 
 .category-table-cell {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-light-blue);
   padding: 0.75rem 1rem;
-  color: #232526;
+  color: var(--color-dark-blue);
 }
 
 /* Category Action Buttons */
 .category-edit-btn {
-  background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-  color: #fff;
+  background: var(--color-light-blue);
+  color: var(--color-dark-blue);
   padding: 0.5rem 1.2rem;
   border: none;
   border-radius: 0.5rem;
@@ -55,13 +55,13 @@
   box-shadow: 0 2px 8px rgba(75,108,183,0.08);
 }
 .category-edit-btn:hover {
-  background: linear-gradient(90deg, #182848 0%, #4b6cb7 100%);
-  color: #f7ca18;
+  background: var(--color-dark-blue);
+  color: var(--color-beige);
 }
 
 .category-delete-btn {
-  background: linear-gradient(90deg, #f85032 0%, #e73827 100%);
-  color: #fff;
+  background: var(--color-red);
+  color: var(--color-beige);
   padding: 0.5rem 1.2rem;
   border: none;
   border-radius: 0.5rem;
@@ -71,8 +71,8 @@
   box-shadow: 0 2px 8px rgba(232,56,39,0.08);
 }
 .category-delete-btn:hover {
-  background: linear-gradient(90deg, #e73827 0%, #f85032 100%);
-  color: #fffbe7;
+  background: var(--color-dark-red);
+  color: var(--color-beige);
 }
 /* Categories Component Styles */
 .categories-container {
@@ -98,7 +98,7 @@
 }
 
 .add-category-section {
-  background: #2c2f34;
+  background: var(--color-light-blue);
   border-radius: 1rem;
   box-shadow: 0 2px 12px rgba(0,0,0,0.10);
   padding: 2rem 2.5rem;
@@ -111,7 +111,7 @@
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 1.2rem;
-  color: #f7ca18;
+  color: var(--color-dark-red);
 }
 
 .add-category-form {
@@ -129,15 +129,15 @@
   padding: 0.7rem 1rem;
   border-radius: 0.5rem;
   border: none;
-  background: #232526;
-  color: #111;
+  background: #fff;
+  color: var(--color-dark-blue);
   font-size: 1rem;
   outline: none;
   transition: box-shadow 0.2s;
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 .input:focus {
-  box-shadow: 0 0 0 2px #f7ca18;
+  box-shadow: 0 0 0 2px var(--color-light-blue);
 }
 .input::placeholder {
   color: #bdbdbd;
@@ -145,8 +145,8 @@
 }
 
 .add-category-btn {
-  background: linear-gradient(90deg, #f7ca18 60%, #f39c12 100%);
-  color: #232526;
+  background: var(--color-dark-red);
+  color: var(--color-beige);
   font-weight: 700;
   border: none;
   border-radius: 0.5rem;
@@ -157,13 +157,13 @@
   margin-top: 0.5rem;
 }
 .add-category-btn:hover {
-  background: linear-gradient(90deg, #f39c12 60%, #f7ca18 100%);
-  color: #fff;
+  background: var(--color-red);
+  color: var(--color-beige);
 }
 
 .category-list-section {
   flex: 2 1 400px;
-  background: #232526;
+  background: var(--color-beige);
   border-radius: 1rem;
   min-height: 300px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);

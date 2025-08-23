@@ -76,23 +76,23 @@ const Profile = () => {
 
 	return (
 		<div className="profile-container">
-			<h2>Mi Perfil</h2>
+			<h2>My Profile</h2>
 			{error && <div className="profile-error">{error}</div>}
 			{success && <div className="profile-success">{success}</div>}
 			<form className="profile-form" onSubmit={handleSubmit}>
-				<label>Nombre:
+				<label>Name:
 					<input type="text" name="name" value={form.name} onChange={handleChange} required />
 				</label>
 				<label>Email:
 					<input type="email" name="email" value={form.email} onChange={handleChange} required />
 				</label>
-				<label>Dirección:
+				<label>Address:
 					<input type="text" name="address" value={form.address} onChange={handleChange} />
 				</label>
-				<label>Nueva contraseña:
+				<label>New Password:
 					<input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Dejar en blanco para no cambiar" />
 				</label>
-				<button type="submit" disabled={loading}>{loading ? 'Guardando...' : 'Guardar cambios'}</button>
+				<button type="submit" disabled={loading}>{loading ? 'Guardando...' : 'Save Changes'}</button>
 			</form>
 		</div>
 	);

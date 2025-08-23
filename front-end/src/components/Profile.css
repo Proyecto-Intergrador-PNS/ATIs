@@ -24,8 +24,8 @@
 }
 .profile-form button {
   padding: 0.75rem;
-  background: #007bff;
-  color: #fff;
+  background: var(--color-dark-red);
+  color: var(--color-beige);
   border: none;
   border-radius: 4px;
   font-weight: bold;
@@ -33,19 +33,20 @@
   transition: background 0.2s;
 }
 .profile-form button:disabled {
-  background: #aaa;
+  background: var(--color-light-blue);
+  color: var(--color-dark-blue);
   cursor: not-allowed;
 }
 .profile-error {
-  color: #b00020;
-  background: #ffeaea;
+  color: var(--color-red);
+  background: #fde2e4;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;
 }
 .profile-success {
-  color: #155724;
-  background: #d4edda;
+  color: var(--color-dark-blue);
+  background: #e0f7fa;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;

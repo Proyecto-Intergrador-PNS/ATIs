@@ -1,3 +1,17 @@
+.user-delete-btn {
+  background: var(--color-red);
+  color: var(--color-beige);
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.user-delete-btn:hover {
+  background: var(--color-dark-red);
+  color: var(--color-beige);
+}
 /* Users.css - Estilos personalizados para la gestión de usuarios */
 
 .user-form input,
@@ -10,8 +24,8 @@
 }
 
 .user-form button {
-  background: #2563eb;
-  color: #fff;
+  background: var(--color-dark-red);
+  color: var(--color-beige);
   padding: 0.5rem 1.5rem;
   border-radius: 0.375rem;
   border: none;
@@ -21,7 +35,7 @@
 }
 
 .user-form button:hover {
-  background: #1d4ed8;
+  background: var(--color-red);
 }
 
 .user-table {
@@ -39,7 +53,8 @@
 }
 
 .user-table th {
-  background: #f3f4f6;
+  background: var(--color-dark-blue);
+  color: var(--color-beige);
   font-weight: 600;
 }
 
@@ -48,13 +63,13 @@
 }
 
 .user-table tr:hover {
-  background: #f1f5f9;
+  background: var(--color-beige);
 }
 
 .user-actions button {
   background: none;
   border: none;
-  color: #2563eb;
+  color: var(--color-light-blue);
   margin-right: 0.5rem;
   cursor: pointer;
   font-weight: 500;
@@ -62,7 +77,7 @@
 }
 
 .user-actions button:last-child {
-  color: #dc2626;
+  color: var(--color-red);
 }
 
 .user-actions button:hover {
@@ -70,16 +85,16 @@
 }
 
 .user-success {
-  background: #d1fae5;
-  color: #065f46;
+  background: #e0f7fa;
+  color: var(--color-dark-blue);
   padding: 0.5rem;
   border-radius: 0.375rem;
   margin-bottom: 0.5rem;
 }
 
 .user-error {
-  background: #fee2e2;
-  color: #991b1b;
+  background: #fde2e4;
+  color: var(--color-red);
   padding: 0.5rem;
   border-radius: 0.375rem;
   margin-bottom: 0.5rem;

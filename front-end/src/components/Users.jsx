@@ -12,7 +12,7 @@ const Users = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('pos-token');
 
   const fetchUsers = async () => {
     try {
@@ -54,7 +54,7 @@ const Users = () => {
 
   const handleEdit = (user) => {
     setForm({ name: user.name, email: user.email, password: '', address: user.address, role: user.role });
-    setEditingId(user.id);
+  setEditingId(user._id);
   };
 
   const handleDelete = async (id) => {
@@ -70,43 +70,43 @@ const Users = () => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Gestión de Usuarios</h2>
+  <h2 className="text-2xl font-bold mb-4">User Management</h2>
       {error && <div className="user-error">{error}</div>}
       {success && <div className="user-success">{success}</div>}
       <form onSubmit={handleSubmit} className="user-form bg-white p-4 rounded shadow mb-6">
         <div className="grid grid-cols-2 gap-4">
-          <input name="name" value={form.name} onChange={handleChange} placeholder="Nombre" required />
+          <input name="name" value={form.name} onChange={handleChange} placeholder="Name" required />
           <input name="email" value={form.email} onChange={handleChange} placeholder="Email" required type="email" disabled={!!editingId} />
-          <input name="password" value={form.password} onChange={handleChange} placeholder={editingId ? "Nueva contraseña (opcional)" : "Contraseña"} type="password" required={!editingId} />
-          <input name="address" value={form.address} onChange={handleChange} placeholder="Dirección" />
+          <input name="password" value={form.password} onChange={handleChange} placeholder={editingId ? "New password (optional)" : "Password"} type="password" required={!editingId} />
+          <input name="address" value={form.address} onChange={handleChange} placeholder="Address" />
           <select name="role" value={form.role} onChange={handleChange}>
-            <option value="customer">Cliente</option>
-            <option value="admin">Administrador</option>
+            <option value="customer">Customer</option>
+            <option value="admin">Admin</option>
           </select>
         </div>
-        <button type="submit">{editingId ? 'Actualizar' : 'Crear'} usuario</button>
-        {editingId && <button type="button" style={{background:'none',color:'#374151'}} onClick={() => { setEditingId(null); setForm({ name: '', email: '', password: '', address: '', role: 'customer' }); }}>Cancelar</button>}
+        <button type="submit">{editingId ? 'Update' : 'Create'} user</button>
+        {editingId && <button type="button" style={{background:'none',color:'#374151'}} onClick={() => { setEditingId(null); setForm({ name: '', email: '', password: '', address: '', role: 'customer' }); }}>Cancel</button>}
       </form>
       <table className="user-table">
         <thead>
           <tr>
-            <th>Nombre</th>
+            <th>Name</th>
             <th>Email</th>
-            <th>Dirección</th>
-            <th>Rol</th>
-            <th>Acciones</th>
+            <th>Address</th>
+            <th>Role</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id}>
+            <tr key={user._id}>
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.address}</td>
-              <td>{user.role === 'admin' ? 'Administrador' : 'Cliente'}</td>
+              <td>{user.role === 'admin' ? 'Admin' : 'Customer'}</td>
               <td className="user-actions">
-                <button onClick={() => handleEdit(user)}>Editar</button>
-                <button onClick={() => handleDelete(user.id)}>Eliminar</button>
+                <button onClick={() => handleEdit(user)}>Edit</button>
+                <button className="user-delete-btn" onClick={() => handleDelete(user._id)}>Delete</button>
               </td>
             </tr>
           ))}

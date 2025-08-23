@@ -33,7 +33,7 @@ const DashboardSummary = () => {
         setCategories(cat.categories || []);
         setOrders(ord.orders || []);
         setSales(sal.sales || []);
-      } catch (e) {
+      } catch {
         // Manejo de error opcional
       }
       setLoading(false);
@@ -48,40 +48,40 @@ const DashboardSummary = () => {
 
   return (
     <div className="dashboard-summary-container">
-      <h1>Resumen General</h1>
+      <h1>Dashboard</h1>
       {loading ? <div>Cargando...</div> : (
         <>
           <div className="dashboard-summary-user">
-            <strong>Usuario logueado:</strong> {user?.name} ({user?.email})
+            <strong>User:</strong> {user?.name} ({user?.email})
           </div>
           <div className="dashboard-summary-cards">
             <div className="dashboard-summary-card">
-              <h2>Productos</h2>
+              <h2>Products</h2>
               <div className="dashboard-summary-count">{products.length}</div>
             </div>
             <div className="dashboard-summary-card">
-              <h2>Proveedores</h2>
+              <h2>Suppliers</h2>
               <div className="dashboard-summary-count">{suppliers.length}</div>
             </div>
             <div className="dashboard-summary-card">
-              <h2>Categorías</h2>
+              <h2>Categories</h2>
               <div className="dashboard-summary-count">{categories.length}</div>
             </div>
             <div className="dashboard-summary-card">
-              <h2>Órdenes de compra</h2>
+              <h2>Purchase orders</h2>
               <div className="dashboard-summary-count">{orders.length}</div>
             </div>
             <div className="dashboard-summary-card">
-              <h2>Ventas</h2>
+              <h2>Sales</h2>
               <div className="dashboard-summary-count">{sales.length}</div>
             </div>
           </div>
           <div className="dashboard-summary-finance">
             <div className="dashboard-summary-gain">
-              <strong>Ganancias por ventas:</strong> ${totalSales}
+              <strong>Seles Earnings:</strong> ${totalSales}
             </div>
             <div className="dashboard-summary-loss">
-              <strong>Pérdidas por compras:</strong> ${totalOrders}
+              <strong>Purchase Loses:</strong> ${totalOrders}
             </div>
             <div className="dashboard-summary-balance">
               <strong>Balance:</strong> ${totalSales - totalOrders}

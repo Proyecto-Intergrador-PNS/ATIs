@@ -136,7 +136,7 @@ const Suppliers = () => {
           <table>
             <thead>
               <tr>
-                <th>#</th>
+                <th>ID</th>
                 <th>Supplier Name</th>
                 <th>Supplier Email</th>
                 <th>Supplier Phone Number</th>
