@@ -84,8 +84,8 @@ const Users = () => {
             <option value="admin">Admin</option>
           </select>
         </div>
-        <button type="submit">{editingId ? 'Update' : 'Create'} user</button>
-        {editingId && <button type="button" style={{background:'none',color:'#374151'}} onClick={() => { setEditingId(null); setForm({ name: '', email: '', password: '', address: '', role: 'customer' }); }}>Cancel</button>}
+  <button type="submit" className="user-main-btn">{editingId ? 'Update' : 'Create'} user</button>
+  {editingId && <button type="button" style={{background:'none',color:'#374151'}} onClick={() => { setEditingId(null); setForm({ name: '', email: '', password: '', address: '', role: 'customer' }); }}>Cancel</button>}
       </form>
       <table className="user-table">
         <thead>
@@ -105,7 +105,7 @@ const Users = () => {
               <td>{user.address}</td>
               <td>{user.role === 'admin' ? 'Admin' : 'Customer'}</td>
               <td className="user-actions">
-                <button onClick={() => handleEdit(user)}>Edit</button>
+                <button className="user-edit-btn" onClick={() => handleEdit(user)}>Edit</button>
                 <button className="user-delete-btn" onClick={() => handleDelete(user._id)}>Delete</button>
               </td>
             </tr>

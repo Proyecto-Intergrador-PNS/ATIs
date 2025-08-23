@@ -296,4 +296,7 @@ npm run dev
 
 ## Desarrollado por el Grupo La Niña, La Pinta y La Santa María
 
-- Full-stack: Ricardo Contreras
+- Full-stack: 604740958 Ricardo Contreras
+- Front-End: 604790176 Kenneth Campos Soto
+- Front-End: 604640651  Reychell Espinoza Hernández
+- Back-End and main lead: 604870859 Ansley Osvaldo Sánchez Aragón

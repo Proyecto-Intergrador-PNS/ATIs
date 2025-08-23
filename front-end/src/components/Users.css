@@ -1,54 +1,56 @@
-.user-delete-btn {
+
+
+/* Botón principal (Create) */
+.user-main-btn {
   background: var(--color-red);
-  color: var(--color-beige);
-  border: none;
-  border-radius: 4px;
-  padding: 0.3rem 0.7rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.2s;
-}
-.user-delete-btn:hover {
-  background: var(--color-dark-red);
-  color: var(--color-beige);
-}
-/* Users.css - Estilos personalizados para la gestión de usuarios */
-
-.user-form input,
-.user-form select {
-  border: 1px solid #d1d5db;
-  padding: 0.5rem;
-  border-radius: 0.375rem;
-  width: 100%;
-  margin-bottom: 0.5rem;
-}
-
-.user-form button {
-  background: var(--color-dark-red);
   color: var(--color-beige);
   padding: 0.5rem 1.5rem;
   border-radius: 0.375rem;
   border: none;
   margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
 }
-
-.user-form button:hover {
+/* Botón Edit igual a Products */
+.user-edit-btn {
+  background: var(--color-light-blue);
+  color: var(--color-dark-blue);
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* Botón Delete igual a Products */
+.user-delete-btn {
   background: var(--color-red);
+  color: var(--color-beige);
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
+/* Eliminar regla duplicada, ya está incluida arriba */
+
+/* Tabla de usuarios más grande y ancha */
 .user-table {
   width: 100%;
+  min-width: 900px;
   border-collapse: collapse;
   background: #fff;
   border-radius: 0.5rem;
   overflow: hidden;
   margin-top: 1rem;
+  font-size: 1.08rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .user-table th, .user-table td {
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.3rem;
   text-align: left;
 }
 
@@ -66,22 +68,11 @@
   background: var(--color-beige);
 }
 
-.user-actions button {
-  background: none;
-  border: none;
-  color: var(--color-light-blue);
-  margin-right: 0.5rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: color 0.2s;
-}
 
-.user-actions button:last-child {
-  color: var(--color-red);
-}
-
-.user-actions button:hover {
-  text-decoration: underline;
+/* Columna de acciones más ancha */
+.user-table th:last-child, .user-table td:last-child {
+  min-width: 180px;
+  width: 200px;
 }
 
 .user-success {
